@@ -22,6 +22,12 @@ namespace ListaWeb.Models
         /// Aquí deben hacer todo lo necesario para la creación de un Pendiente
         public PendienteItem()
         {
+            
+                Id=Guid.NewGuid();
+
+                ParaCuando=DateTime.Today.AddDays(3);
+                EstaHecha=false;
+                        
             /// El Id debe generarse a la creación de Guid
 
 

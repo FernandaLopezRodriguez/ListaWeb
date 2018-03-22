@@ -16,6 +16,7 @@ namespace ListaWeb.Services
         /// Aquí usamamos DI para obtener el DbContext
         public PendienteItemService(ListaDbContext context)
         {
+            
             _context = context;
         }
 
@@ -24,7 +25,7 @@ namespace ListaWeb.Services
         
         public bool AgregarPendiente(PendienteItem pendiente)
         {
-            
+            _context.Pendientes.Add(pendiente);
 
 
 
@@ -37,8 +38,15 @@ namespace ListaWeb.Services
         /// Regresar la lista de todos los pendientes incompletos, o sea que  EstaHecho == False
         public IEnumerable<PendienteItem> GetPendientesIncompletos()
         {
+            var pato = new List <PendienteItem>();
+            var pollo = _context.Pendientes;
+            foreach (var i in pollo){
+                if (i.EstaHecha==false){
+                    pato.Add(i);
+                }
+            }
 
-            return new List<PendienteItem>();
+            return pato;
 
 
         }
@@ -48,6 +56,14 @@ namespace ListaWeb.Services
         public bool MarcarHecho(Guid id)
         {
            /// 1
+        
+            foreach (var p in _context.Pendientes){
+                if (p.Id==id)
+                {
+                    p.EstaHecha=true;
+                }
+            }
+
            /// Buscar el id de la tarea
            /// utilizar el método de LINQ FirstOrDefault
            /// Regresa el pendiente si lo encontró null si no
